@@ -40,4 +40,16 @@ public class BoardTest {
                 "-----\n" +
                 "7|8|9"));
      }
+
+    @Test
+    public void shouldReturnDrawBoardWithAXAndOOnTheBoard() {
+
+        board.drawsSymbolOnBoard("2", "X");
+        board.drawsSymbolOnBoard("5", "O");
+        assertThat(board.drawBoard(), is("1|X|3\n" +
+                "-----\n" +
+                "4|O|6\n" +
+                "-----\n" +
+                "7|8|9"));
+     }
 }

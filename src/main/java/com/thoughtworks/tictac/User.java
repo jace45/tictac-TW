@@ -15,9 +15,6 @@ public class User {
 
         return name;
     }
-//
-//    public void chooseLocation() {
-//    }
 
     public String getSymbol() {
         return symbol;
