@@ -50,7 +50,8 @@ public class GameTest {
     @Test
     public void shouldCallDrawAgainWhenFirstUserInputsANumber() throws IOException {
         //BufferedReader bufferedReader = mock(BufferedReader.class);
-        when(bufferedReader.readLine()).thenReturn("2");
+        when(bufferedReader.readLine()).thenReturn("2").thenReturn("Stop");
+        when(user0.getSymbol()).thenReturn("X");
 
         game.start();
 
@@ -59,10 +60,14 @@ public class GameTest {
      }
 
     @Test
-    public void shouldPromptUserTwoToChooseANumber() {
+    public void shouldPromptUserTwoToChooseANumber() throws IOException {
+        when(bufferedReader.readLine()).thenReturn("2").thenReturn("Stop");
+        when(user0.getSymbol()).thenReturn("X");
+
         game.start();
 
-        //verify(printStream).println(users.getName() + " please choose a number between 1-9");
+        verify(user1).getName();
+        verify(printStream, times(2)).println(contains("please choose a number between 1-9"));
 
 
      }

@@ -22,21 +22,28 @@ public class Game {
     }
 
     public void start() {
-        int x = 0;
+        //int x = 0;
         printStream.println(board.drawBoard());
-        while (x != 2){
+        //while (x != 2){
             playOnBoard();
-            x++;
-        }
+         //   x++;
+        //}
     }
 
     public void playOnBoard() {
-            printStream.println(user.getName() + " please choose a number between 1-9");
-            String userInput = read();
+        printStream.println(user.getName() + " please choose a number between 1-9");
+        String userInput = read();
+        continueToPlayUntilStop(userInput);
+    }
 
+    public void continueToPlayUntilStop(String userInput){
+        while (!userInput.equals("Stop")) {
             board.drawsSymbolOnBoard(userInput, user.getSymbol());
             printStream.println(board.drawBoard());
             changeUsers();
+            printStream.println(user.getName() + " please choose a number between 1-9");
+            userInput = read();
+        }
 
     }
 
