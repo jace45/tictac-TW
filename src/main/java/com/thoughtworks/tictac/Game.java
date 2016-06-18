@@ -1,47 +1,37 @@
 package com.thoughtworks.tictac;
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.PrintStream;
 
 public class Game {
     private Board board;
     private PrintStream printStream;
-    private BufferedReader bufferedReader;
     private User user;
     private User[] users;
 
-    public Game(Board board, PrintStream printStream, BufferedReader bufferedReader, User[] users) {
+    public Game(Board board, PrintStream printStream, User[] users) {
 
         this.board = board;
         this.printStream = printStream;
-        this.bufferedReader = bufferedReader;
         this.user = users[0];
         this.users = users;
     }
 
     public void start() {
-        printStream.println(board.drawBoard());
-            playOnBoard();
+        //printStream.println(board.drawBoard());
+        playOnBoard();
     }
 
     public void playOnBoard() {
-        printStream.println(user.getName() + " please choose a number between 1-9");
-        String userInput = read();
-        continueToPlayUntilStop(userInput);
-    }
-
-    public void continueToPlayUntilStop(String userInput){
-        while (!userInput.equals("Stop")) {
-            board.drawsSymbolOnBoard(userInput, user.getSymbol());
+        String userInput;
+        do {
             printStream.println(board.drawBoard());
-            changeUsers();
             printStream.println(user.getName() + " please choose a number between 1-9");
-            userInput = read();
-        }
-
+            userInput = user.userPlaysTheirSymbol();
+            changeUsers();
+        } while (!userInput.equalsIgnoreCase("Stop"));
     }
+
 
     private void changeUsers() {
         if (user.equals(users[0])){
@@ -49,14 +39,5 @@ public class Game {
         } else{
             user = users[0];
         }
-    }
-
-    private String read() {
-        try {
-            return bufferedReader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }
