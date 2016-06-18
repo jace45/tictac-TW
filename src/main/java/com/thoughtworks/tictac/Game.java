@@ -22,12 +22,8 @@ public class Game {
     }
 
     public void start() {
-        //int x = 0;
         printStream.println(board.drawBoard());
-        //while (x != 2){
             playOnBoard();
-         //   x++;
-        //}
     }
 
     public void playOnBoard() {
