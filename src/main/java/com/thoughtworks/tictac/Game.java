@@ -18,18 +18,14 @@ public class Game {
     }
 
     public void start() {
-        //printStream.println(board.drawBoard());
-        playOnBoard();
-    }
-
-    public void playOnBoard() {
-        String userInput;
         do {
-            printStream.println(board.drawBoard());
+            board.drawBoard();
             printStream.println(user.getName() + " please choose a number between 1-9");
-            userInput = user.userPlaysTheirSymbol();
+            user.userPlaysTheirSymbol();
             changeUsers();
-        } while (!userInput.equalsIgnoreCase("Stop"));
+        } while (board.boardIsNotFilled());
+        board.drawBoard();
+        printStream.println("Game is a draw");
     }
 
 

@@ -29,17 +29,15 @@ public class GameTest {
 
     @Test
     public void shouldDrawBoardWhenGameStarts() {
-        when(user0.userPlaysTheirSymbol()).thenReturn("Stop");
         game.start();
 
-        verify(board).drawBoard();
+        verify(board, times(2)).drawBoard();
 
      }
 
     @Test
     public void shouldPromptUser1ToEnterAnInput() {
         when(user0.getName()).thenReturn("foo");
-        when(user0.userPlaysTheirSymbol()).thenReturn("Stop");
         game.start();
 
         verify(printStream).println(contains("please choose a number between 1-9"));
@@ -48,9 +46,7 @@ public class GameTest {
     @Test
     public void shouldCallDrawBoardTwiceWhenFirstUserInputsANumber() throws IOException {
         when(user0.getName()).thenReturn("foo");
-        when(user0.userPlaysTheirSymbol()).thenReturn("2");
         when(user1.getName()).thenReturn("fo");
-        when(user1.userPlaysTheirSymbol()).thenReturn("Stop");
 
 
         game.start();
@@ -61,16 +57,31 @@ public class GameTest {
     @Test
     public void shouldPromptUserTwoToChooseANumber() throws IOException {
         when(user0.getName()).thenReturn("foo");
-        when(user0.userPlaysTheirSymbol()).thenReturn("2");
+        when(board.boardIsNotFilled()).thenReturn(true,false);
         when(user1.getName()).thenReturn("fo");
-        when(user1.userPlaysTheirSymbol()).thenReturn("Stop");
 
         game.start();
 
         verify(printStream, times(2)).println(contains("please choose a number between 1-9"));
 
-
      }
 
+    @Test
+    public void shouldCheckToSeeIfGameIsADrawWhenBoardIsFilled() {
+        when(user0.getName()).thenReturn("foo");
+
+        game.start();
+
+        verify(board).boardIsNotFilled();
+    }
+
+    @Test
+    public void shouldSayItIsADrawWhenBoardIsFilled() {
+
+        game.start();
+
+        verify(printStream).println("Game is a draw");
+
+     }
 
 }

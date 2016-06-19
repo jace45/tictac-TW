@@ -2,7 +2,6 @@ package com.thoughtworks.tictac;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintStream;
 
 public class User {
 
@@ -19,11 +18,13 @@ public class User {
         this.board = board;
     }
 
-    public String userPlaysTheirSymbol(){
-        String userInput = read();
+    public void userPlaysTheirSymbol() {
+        String userInput;
+        do {
+            userInput = read();
+        } while (board.isNotAValidMove(userInput));
         board.drawsSymbolOnBoard(userInput, symbol);
 
-        return userInput;
     }
 
     public String getName() {
